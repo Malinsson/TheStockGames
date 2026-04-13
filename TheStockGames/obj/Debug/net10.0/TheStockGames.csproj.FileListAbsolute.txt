@@ -1,0 +1,14 @@
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\bin\Debug\net10.0\TheStockGames.exe
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\bin\Debug\net10.0\TheStockGames.deps.json
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\bin\Debug\net10.0\TheStockGames.runtimeconfig.json
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\bin\Debug\net10.0\TheStockGames.dll
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\bin\Debug\net10.0\TheStockGames.pdb
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.AssemblyInfoInputs.cache
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.AssemblyInfo.cs
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.csproj.CoreCompileInputs.cache
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.dll
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\refint\TheStockGames.dll
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.pdb
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.genruntimeconfig.cache
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\ref\TheStockGames.dll
