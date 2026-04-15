@@ -34,22 +34,21 @@ public class CLIRenderer
         }
         Console.ResetColor();
 
-        // Market table
-        Console.WriteLine("\n  ┌───────────────────────────────────────────────┐");
-        Console.WriteLine("  │  MARKET                                       │");
-        Console.WriteLine("  ├──────┬────────────────────┬──────────┬────────┤");
-        Console.WriteLine("  │ TKR  │ Name               │ Price    │ Change │");
-        Console.WriteLine("  ├──────┼────────────────────┼──────────┼────────┤");
+        Console.WriteLine("\n  ┌─────────────────────────────────────────────────┐");
+        Console.WriteLine("  │  MARKET                                         │");
+        Console.WriteLine("  ├──────┬────────────────────┬───────────┬─────────┤");
+        Console.WriteLine("  │ TKR  │ Name               │ Price     │ Change  │");
+        Console.WriteLine("  ├──────┼────────────────────┼───────────┼─────────┤");
 
         foreach (Stock stock in market.Stocks)
         {
-            string changeSymbol = stock.PriceChange >= 0 ? "▲" : "▼";
+            string changeSymbol = stock.PriceChange >= 0 ? "+" : "-";
             Console.ForegroundColor = stock.PriceChange >= 0 ? ConsoleColor.Green : ConsoleColor.Red;
-            Console.WriteLine($"  │ {stock.Ticker,-4} │ {stock.Name,-18} │ ${stock.Price,-8:F2}│ {changeSymbol}{Math.Abs(stock.PriceChange),-6:F2} │");
+            Console.WriteLine($"  │ {stock.Ticker,-4} │ {stock.Name,-18} │ ${stock.Price,-8:F2} │ {changeSymbol}{Math.Abs(stock.PriceChange),-6:F2} │");
             Console.ResetColor();
         }
 
-        Console.WriteLine("  └──────┴────────────────────┴──────────┴────────┘");
+        Console.WriteLine("  └──────┴────────────────────┴───────────┴─────────┘");
 
         Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.WriteLine("\n  Commands: buy | sell | portfolio | quit | enter key to progress to the next turn");
@@ -90,9 +89,9 @@ public class CLIRenderer
 
         decimal netProfit = totalValue - player.StartingCash;
         Console.ForegroundColor = netProfit >= 0 ? ConsoleColor.Green : ConsoleColor.Red;
-        Console.WriteLine($"  │ Cash:         ${player.Cash,-9:F2}|");
-        Console.WriteLine($"  │ Total Value:  ${totalValue,-9:F2}|");
-        Console.WriteLine($"  │ Net Profit:   ${netProfit,-9:F2}|");
+        Console.WriteLine($"  │ Cash:         ${player.Cash,-20:F2}|");
+        Console.WriteLine($"  │ Total Value:  ${totalValue,-20:F2}|");
+        Console.WriteLine($"  │ Net Profit:   ${netProfit,-20:F2}|");
         Console.ResetColor();
         Console.WriteLine("  └─────────────────────────────────────────────────┘");
 
@@ -202,11 +201,6 @@ public class CLIRenderer
 
   Barry is suing you for $10,000.
 
-  Not for the statue. He has plenty of statues. He's suing you 
-  because the crash ""emotionally disturbed"" his pet tortoise, Gerald.
-  Gerald hasn't eaten since. Barry's lawyer says Gerald ""used to 
-  love lettuce"" and now ""just stares."" 
-
   The court date is in 30 days.
 
   Your savings account contains $300. Your regular account contains 
@@ -265,7 +259,7 @@ public class CLIRenderer
             Console.WriteLine($"  ║  {line,-44}║");
 
         Console.WriteLine("  ╠══════════════════════════════════════════════╣");
-        Console.WriteLine($"  ║  {(isPositive ? "+" : "")}{ev.Amount:F2} added to your cash{"",-26}║");
+        Console.WriteLine($"  ║  {(isPositive ? "+" : "")}{ev.Amount:F2} added to your cash{"",-19}║");
         Console.WriteLine("  ╚══════════════════════════════════════════════╝");
         Console.ResetColor();
 

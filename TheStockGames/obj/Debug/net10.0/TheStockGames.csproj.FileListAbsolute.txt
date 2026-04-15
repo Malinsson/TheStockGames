@@ -12,3 +12,4 @@ C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10
 C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.pdb
 C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.genruntimeconfig.cache
 C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\ref\TheStockGames.dll
+C:\Users\malin\Documents\Yrgo\Csharp\TheStockGames\TheStockGames\obj\Debug\net10.0\TheStockGames.sourcelink.json

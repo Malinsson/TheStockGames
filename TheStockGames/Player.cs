@@ -10,14 +10,13 @@ public class Player(string name, decimal startingCash)
     public readonly Dictionary<string, int> Holdings = new Dictionary<string, int>();
     
 
-    public void Buy(Stock stock, int amount)
+    public bool Buy(Stock stock, int amount)
     {
         var totalCost = stock.Price * amount;
         
         if (totalCost > Cash)
         {
-            Console.WriteLine("You don't have enough money to buy that!");
-            return;
+            return false;
         }
         
         Cash -= totalCost;
@@ -26,21 +25,20 @@ public class Player(string name, decimal startingCash)
             Holdings[stock.Ticker] += amount;
         else
             Holdings[stock.Ticker] = amount;
-        
+
+        return true;
     }
 
-    public void Sell(Stock stock, int amount)
+    public bool Sell(Stock stock, int amount)
     {
         if (!Holdings.ContainsKey(stock.Ticker))
         {
-            Console.WriteLine("You don't own any stocks there!");
-            return;
+            return false;
         }
 
         if (Holdings[stock.Ticker] < amount)
         {
-            Console.WriteLine("You don't have enough shares!");
-            return;
+            return false;
         }
 
         Cash += amount * stock.Price;
@@ -48,6 +46,19 @@ public class Player(string name, decimal startingCash)
         
         if (Holdings[stock.Ticker] == 0)
             Holdings.Remove(stock.Ticker);
-        
+
+        return true;
+    }
+
+    public decimal CalculateHoldings(Player player, Market market)
+    {
+        decimal portfolioValue = 0;
+        foreach (var holding in player.Holdings)
+        {
+            Stock stock = market.Stocks.Find(s => s.Ticker == holding.Key);
+            portfolioValue += stock.Price * holding.Value;
+        }
+
+        return portfolioValue;
     }
 }

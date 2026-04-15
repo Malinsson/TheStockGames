@@ -26,7 +26,7 @@ public class GameEngine
     {
         _renderer.RenderIntro(_player.Name);
         
-        while (true)
+        while (_turnNumber < 30)
         {
             _renderer.RenderMarket(_market, _player, _turnNumber);
         
@@ -34,9 +34,16 @@ public class GameEngine
             if (ev != null)
             {
                 var firedEvent = ev.Value;
-                _renderer.RenderEvent(firedEvent);
                 var affected = _market.Stocks.Find(s => s.Ticker == firedEvent.Ticker);
-                affected?.Price *= (decimal)firedEvent.Modifier;
+
+                if (affected != null)
+                {
+                    var oldPrice = affected.Price;
+                    affected.Price *= (decimal)firedEvent.Modifier;
+                    affected.PriceChange = affected.Price - oldPrice;
+                }
+
+                _renderer.RenderEvent(firedEvent);
                 _renderer.RenderMarket(_market, _player, _turnNumber);
             }
             
@@ -48,14 +55,6 @@ public class GameEngine
                 _renderer.RenderPlayerEvent(firedEvent);
                 _renderer.RenderMarket(_market, _player, _turnNumber);
             }
-
-            var validCommand = false;
-            while (!validCommand)
-            {
-                Console.Write("\n  > ");
-                var command = Console.ReadLine()?.ToLower().Trim();
-                validCommand = HandleCommand(command);
-            }
             
             if (IsWinner())
             {
@@ -66,6 +65,7 @@ public class GameEngine
             if (IsBankrupt())
             {
                 BankruptcyHandler.Handle(_player);
+                
                 if (_player.Cash <= 0)
                 {
                     _renderer.RenderGameOver(_player);
@@ -81,9 +81,20 @@ public class GameEngine
                 Console.WriteLine($"Interest charged: ${interest:F2}. Total debt: ${_player.Debt:F2}");
             }
 
+            var validCommand = false;
+            while (!validCommand)
+            {
+                Console.Write("\n  > ");
+                var command = Console.ReadLine()?.ToLower().Trim();
+                validCommand = HandleCommand(command);
+            }
+            
             _market.TickPrices();
             _turnNumber++;
         }
+        
+        _renderer.RenderGameOver(_player);
+        
     }
     
     private bool HandleCommand(string command)
@@ -106,7 +117,7 @@ public class GameEngine
             case "":
                 return true;
             default:
-                Console.WriteLine("Unknown command. Try: buy, sell, portfolio, quit or enter key to progress to the next turn");
+                Console.WriteLine("  Unknown command. Try: buy, sell, portfolio, quit or enter key to progress to the next turn");
                 return false;
         }
     }
@@ -130,6 +141,7 @@ public class GameEngine
             Console.Write("How many shares? ");
             if (int.TryParse(Console.ReadLine(), out var quantity))
             {
+                
                 _player.Buy(stock, quantity);
                 validBuy = true;
             }
@@ -154,32 +166,32 @@ public class GameEngine
             return;
         }
 
-        Console.Write("How many shares? ");
-        if (int.TryParse(Console.ReadLine(), out var quantity))
-            _player.Sell(stock, quantity);
-        else
-            Console.WriteLine("Invalid quantity!");
+        while (true)
+        {
+            Console.Write("How many shares? ");
+            
+            if (int.TryParse(Console.ReadLine(), out var quantity))
+            {
+                var amountToSell = Math.Min(quantity, _player.Holdings[stock.Ticker] );   
+                _player.Sell(stock, amountToSell);
+                break;
+            }
+            
+            Console.WriteLine("Invalid quantity! Try again");
+        }
     }
     
     private bool IsBankrupt()
     {
-        decimal portfolioValue = 0;
-        foreach (var holding in _player.Holdings)
-        {
-            Stock stock = _market.Stocks.Find(s => s.Ticker == holding.Key);
-            portfolioValue += stock.Price * holding.Value;
-        }
+        var portfolioValue = _player.CalculateHoldings(_player, _market);
         return (_player.Cash + portfolioValue) < 1.00m;
     }
     
     private bool IsWinner()
     {
-        decimal totalValue = _player.Cash;
-        foreach (var holding in _player.Holdings)
-        {
-            Stock stock = _market.Stocks.Find(s => s.Ticker == holding.Key);
-            totalValue += stock.Price * holding.Value;
-        }
+        var totalValue = _player.CalculateHoldings(_player, _market);
         return totalValue >= _winGoal;
     }
+    
+    
 }

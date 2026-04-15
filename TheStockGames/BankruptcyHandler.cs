@@ -3,17 +3,17 @@
 public class BankruptcyHandler
 {
     
-    private static int timesGoneBroke = 0;
+    private static int _timesGoneBroke = 0;
 
     public static void Handle(Player player)
     {
-        timesGoneBroke++;
+        _timesGoneBroke++;
 
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("\n💀 YOU ARE BROKE 💀");
+        Console.WriteLine("\n💀 YOU ARE BANKRUPT 💀");
         Console.ResetColor();
 
-        switch (timesGoneBroke)
+        switch (_timesGoneBroke)
         {
             case 1:
                 CallParents(player);
@@ -125,5 +125,6 @@ public class BankruptcyHandler
         Console.WriteLine("\nGAME OVER. You have nothing. Not even Barry wants to know you.");
         player.Cash = 0;
     }
+    
 }
 
